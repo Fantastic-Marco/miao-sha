@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    username: root
+    password: marco520
+    driverClassName: com.mysql.jdbc.Driver
+    connectionProperties: druid.stat.mergeSql=true
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  #实体类所在包
+  type-aliases-package: com.marco.dao.entity
+  mapperLocations: classpath:mapper/*.xml
+
+#redis
+reids:
+  host:192.168.175.129
+  password:marco
+  database:5
+  maxIdel:5
+  minIdel:1
+
+
+
+
+---
+# 开发环境配置
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://192.168.175.129/majiang?autoReconnect=true&characterEncoding=utf8&useSSL=false
+
+---
+# 测试环境配置
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://192.168.175.129/majiang?autoReconnect=true&characterEncoding=utf8&useSSL=false
+
+---
+# 生产环境配置
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://192.168.175.129/majiang?autoReconnect=true&characterEncoding=utf8&useSSL=false
