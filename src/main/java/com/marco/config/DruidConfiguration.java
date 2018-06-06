@@ -30,6 +30,7 @@ public class DruidConfiguration {
 
     /**
      * Druid 认证配置
+     *
      * @return
      */
     @Bean
@@ -43,6 +44,11 @@ public class DruidConfiguration {
         return registrationBean;
     }
 
+    /**
+     * Druid 拦截器
+     *
+     * @return
+     */
     @Bean
     public FilterRegistrationBean druidWebStatViewFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(new WebStatFilter());
@@ -54,6 +60,7 @@ public class DruidConfiguration {
 
     /**
      * Druid数据源初始化
+     *
      * @return
      */
     @Bean

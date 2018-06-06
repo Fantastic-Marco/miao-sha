@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 
 /**
+ * 这是一个专门用来测试用的Controller
  * Created by landun on 2018/5/23.
  */
 @Controller

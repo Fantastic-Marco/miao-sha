@@ -6,25 +6,27 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by landun on 2018/6/6.
+ * Druid连接池配置信息
+ * 读取自druid.properties
  */
 @Component
 @ConfigurationProperties(prefix = "druid")
 @PropertySource(value = "classpath:druid.properties")
 public class DruidConf {
-    private int initialSize;
-    private int minIdle;
-    private int maxActive;
-    private int maxWait;
-    private int timeBetweenEvictionRunsMillis;
-    private int minEvictableIdleTimeMillis;
-    private String validationQuery;
-    private boolean testWhileIdle;
-    private boolean testOnBorrow;
-    private boolean testOnReturn;
-    private boolean poolPreparedStatements;
-    private int maxPoolPreparedStatementPerConnectionSize;
-    private String filters;
-    private boolean useGlobalDataSourceStat;
+    private int initialSize;        //初始化大小
+    private int minIdle;        //最小等待连接数
+    private int maxActive;      //最大连接数
+    private int maxWait;        //最大等待毫秒数
+    private int timeBetweenEvictionRunsMillis;      //配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    private int minEvictableIdleTimeMillis;     //连接在池中最小生存的时间，单位是毫秒
+    private String validationQuery;     //检测连接是否有效的sql
+    private boolean testWhileIdle;      //申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。不影响性能。
+    private boolean testOnBorrow;       //申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+    private boolean testOnReturn;       //	归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+    private boolean poolPreparedStatements;     //是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+    private int maxPoolPreparedStatementPerConnectionSize;      //要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+    private String filters;     //属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+    private boolean useGlobalDataSourceStat;        //是否合并多个DruidDataSource的监控数据
 
     public int getInitialSize() {
         return initialSize;

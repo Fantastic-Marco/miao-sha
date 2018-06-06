@@ -4,19 +4,23 @@ package com.marco.dao.entity;
  * Created by landun on 2018/5/23.
  */
 
+
+/**
+ * 管理员
+ */
 public class Admin {
-    private Integer id;
-    private String name;
-    private String passsword;
-    private String token;
+    private Integer id;     //唯一标识符
+    private String name;    //用户名、登录名
+    private String password;    //密码
+    private String token;       //token
 
     public Admin() {
     }
 
-    public Admin(Integer id, String name, String passsword, String token) {
+    public Admin(Integer id, String name, String password, String token) {
         this.id = id;
         this.name = name;
-        this.passsword = passsword;
+        this.password = password;
         this.token = token;
     }
 
@@ -36,12 +40,12 @@ public class Admin {
         this.name = name;
     }
 
-    public String getPasssword() {
-        return passsword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasssword(String passsword) {
-        this.passsword = passsword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getToken() {
@@ -57,7 +61,7 @@ public class Admin {
         return "Admin{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", passsword='" + passsword + '\'' +
+                ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
                 '}';
     }

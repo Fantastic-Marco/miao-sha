@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by landun on 2018/5/23.
+ * 管理员控制器
  */
 @Controller
 @RequestMapping("/admin")
@@ -19,6 +20,10 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 获取所有管理员信息
+     * @return
+     */
     @RequestMapping("/list")
     @ResponseBody
     public Msg<Admin> getAll() {
