@@ -1,6 +1,10 @@
 package com.marco.controller;
 
+import com.marco.config.conf.RedisConf;
+import com.marco.config.redis.key.AdminPrefix;
 import com.marco.result.Msg;
+import com.marco.service.RedisService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,11 +17,15 @@ import java.util.ArrayList;
  */
 @Controller
 public class DemoController {
+    @Autowired
+    RedisService redisService;
 
     @RequestMapping("/")
     @ResponseBody
-    String home() {
-        return "Hello World!";
+    Msg<RedisConf> home() {
+        redisService.setKey(new AdminPrefix(), "test", 2);
+        float value = redisService.getKey(new AdminPrefix(),"test",Float.class);
+        return Msg.returnSuccess(value);
     }
 
     @RequestMapping("/hello")

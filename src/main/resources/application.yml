@@ -16,17 +16,6 @@ mybatis:
   type-aliases-package: com.marco.dao.entity
   mapperLocations: classpath:mapper/*.xml
 
-#redis
-reids:
-  host:192.168.175.129
-  password:marco
-  database:5
-  maxIdel:5
-  minIdel:1
-
-
-
-
 ---
 # 开发环境配置
 spring:
