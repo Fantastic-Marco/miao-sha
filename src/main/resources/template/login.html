@@ -8,14 +8,14 @@
     <title>登录</title>
 </head>
 <body>
-<form role="form" action="login" method="post">
+<form role="form" th:action="@{/login}" method="post">
     <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" name="username"/>
+        <label for="name">Username:</label>
+        <input type="text" class="form-control" id="name" th:name="name"/>
     </div>
     <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" name="password"/>
+        <input type="password" class="form-control" id="password" th:name="password"/>
     </div>
     <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <button type="submit" class="btn btn-primary">Submit</button>
