@@ -19,16 +19,11 @@ spring:
       content-type: text/html
     mode: HTML5
 
+
 mybatis:
   #实体类所在包
   type-aliases-package: com.marco.dao.entity
   mapperLocations: classpath:mapper/*.xml
-
-security:
-  user:
-    name: user
-    password: password
-    role: USER
 
 ---
 # 开发环境配置

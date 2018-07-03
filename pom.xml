@@ -16,6 +16,11 @@
 
     <properties>
         <druid>1.0.18</druid>
+        <spring-boot>1.5.4.RELEASE</spring-boot>
+        <mybaits>1.3.0</mybaits>
+        <pagehelper>4.1.6</pagehelper>
+        <jedis>2.9.0</jedis>
+        <fastjson>1.2.47</fastjson>
     </properties>
 
     <dependencies>
@@ -24,14 +29,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.5.4.RELEASE</version>
+            <version>${spring-boot}</version>
         </dependency>
 
         <!--Mybaits-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.0</version>
+            <version>${mybaits}</version>
         </dependency>
 
         <!--mysql driver-->
@@ -52,11 +57,10 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.1.6</version>
+            <version>${pagehelper}</version>
         </dependency>
 
         <!--Spring security-->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -79,14 +83,14 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
+            <version>${jedis}</version>
         </dependency>
 
         <!-- fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
+            <version>${fastjson}</version>
         </dependency>
 
         <!-- 测试组件 -->
@@ -109,6 +113,11 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot</artifactId>-->
+            <!--<version>1.5.4.RELEASE</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 

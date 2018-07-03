@@ -1,0 +1,13 @@
+#login-contaier {
+    width: 20%;
+    margin: auto;
+    margin-top: 200px;
+}
+
+body{
+    background-color:#9fcdff;
+}
+
+#login-contaier>h3{
+    text-align:center;
+}

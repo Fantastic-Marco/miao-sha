@@ -76,7 +76,6 @@ public class DemoController {
         Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(),adminOV.getPassword());
         Authentication token = authenticationProvider.authenticate(authentication);
         model.addAttribute("test", "logined");
-//        handler.onAuthenticationSuccess(request,response,token);
         return "index";
     }
 
