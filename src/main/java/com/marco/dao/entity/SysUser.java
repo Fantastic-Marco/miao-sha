@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by landun on 2018/6/29.
  */
 
-public class User {
+public class SysUser {
     private String id;
     private String username;
     private String password;

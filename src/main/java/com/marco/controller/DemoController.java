@@ -70,12 +70,16 @@ public class DemoController {
         return "index";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     String login(HttpServletRequest request, HttpServletResponse response, Model model, AdminOV adminOV) throws IOException, ServletException {
         System.out.println(adminOV);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(),adminOV.getPassword());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(), adminOV.getPassword());
         Authentication token = authenticationProvider.authenticate(authentication);
-        model.addAttribute("test", "logined");
+        if (token == null) {
+            model.addAttribute("result", "登录成功");
+        } else {
+            model.addAttribute("result", "登录失败");
+        }
         return "index";
     }
 
