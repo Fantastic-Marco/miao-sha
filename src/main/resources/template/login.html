@@ -19,12 +19,22 @@
     <h3>秒杀系统</h3>
     <form role="form" th:action="@{/login}" method="post">
         <div class="form-group">
-            <label for="name">Username:</label>
+            <label for="name">账号</label>
             <input type="text" class="form-control" id="name" th:name="name"/>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
+            <label for="password">密码</label>
             <input type="password" class="form-control" id="password" th:name="password"/>
+        </div>
+        <div class="form-group">
+            <div class="row" id="code-contaier">
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="imgcode" th:name="imgcode" placeholder="验证码"/>
+                </div>
+                <div class="col-xs-4">
+                    <img th:src="@{/img/imgcode}" id="imgcode-container" title="点击刷新">
+                </div>
+            </div>
         </div>
         <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit" class="btn btn-primary">登录</button>

@@ -11,3 +11,14 @@ body{
 #login-contaier>h3{
     text-align:center;
 }
+
+#imgcode-container{
+    width: 100%;
+    height: 38px;
+    margin-left: 17px;
+}
+
+#code-contaier{
+    width: 100%;
+    margin: auto;
+}

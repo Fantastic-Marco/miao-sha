@@ -18,6 +18,9 @@ spring:
     servlet:
       content-type: text/html
     mode: HTML5
+  mvc:
+    static-path-pattern: classpath:static/**
+
 
 
 mybatis:

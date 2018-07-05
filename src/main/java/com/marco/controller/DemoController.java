@@ -7,6 +7,7 @@ import com.marco.result.Msg;
 import com.marco.security.LoginSuccessHandler;
 import com.marco.security.SpringAuthenticationProvider;
 import com.marco.service.RedisService;
+import com.marco.util.ImageCodeUtil;
 import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,11 +25,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -71,7 +77,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(HttpServletRequest request, HttpServletResponse response, Model model, AdminOV adminOV) throws IOException, ServletException {
+    String login(Model model, AdminOV adminOV){
         System.out.println(adminOV);
         Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(), adminOV.getPassword());
         Authentication token = authenticationProvider.authenticate(authentication);
@@ -81,6 +87,21 @@ public class DemoController {
             model.addAttribute("result", "登录失败");
         }
         return "index";
+    }
+
+    @RequestMapping(value="/img/imgcode",method = RequestMethod.GET)
+    String imgCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        OutputStream os = response.getOutputStream();
+        Map<String,Object> map = ImageCodeUtil.getImageCode(60, 20, os);
+        String simpleCaptcha = "simpleCaptcha";
+        request.getSession().setAttribute(simpleCaptcha, map.get("strEnsure").toString().toLowerCase());
+        request.getSession().setAttribute("codeTime",new Date().getTime());
+        try {
+            ImageIO.write((BufferedImage) map.get("image"), "JPEG", os);
+        } catch (IOException e) {
+            return "";
+        }
+        return null;
     }
 
 }
