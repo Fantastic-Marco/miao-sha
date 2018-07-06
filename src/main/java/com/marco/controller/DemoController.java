@@ -8,6 +8,7 @@ import com.marco.security.LoginSuccessHandler;
 import com.marco.security.SpringAuthenticationProvider;
 import com.marco.service.RedisService;
 import com.marco.util.ImageCodeUtil;
+import com.marco.util.StringUtil;
 import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -76,26 +77,36 @@ public class DemoController {
         return "index";
     }
 
+    @RequestMapping(value = "/redirect",method = RequestMethod.GET)
+    String redirect(){
+        return "redirect:/to_login";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(Model model, AdminOV adminOV){
+    String login(HttpServletRequest request,Model model, AdminOV adminOV){
         System.out.println(adminOV);
+        String sessionImgCode = (String) request.getSession().getAttribute("sessionImgCode");
+        System.out.println("sessionImgCode:" + sessionImgCode);
         Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(), adminOV.getPassword());
         Authentication token = authenticationProvider.authenticate(authentication);
         if (token == null) {
-            model.addAttribute("result", "登录成功");
-        } else {
             model.addAttribute("result", "登录失败");
+            return "redirect:/to_login";
+        } else {
+            model.addAttribute("result", "登录成功");
+            return "index";
         }
-        return "index";
     }
 
     @RequestMapping(value="/img/imgcode",method = RequestMethod.GET)
     String imgCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OutputStream os = response.getOutputStream();
-        Map<String,Object> map = ImageCodeUtil.getImageCode(60, 20, os);
+        String ramdomCode = StringUtil.getRamdomImgCode(6);
+        Map<String,Object> map = ImageCodeUtil.getImageCode(100, 36, ramdomCode);
         String simpleCaptcha = "simpleCaptcha";
         request.getSession().setAttribute(simpleCaptcha, map.get("strEnsure").toString().toLowerCase());
         request.getSession().setAttribute("codeTime",new Date().getTime());
+        request.getSession().setAttribute("sessionImgCode",ramdomCode);
         try {
             ImageIO.write((BufferedImage) map.get("image"), "JPEG", os);
         } catch (IOException e) {

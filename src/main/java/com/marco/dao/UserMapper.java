@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-    @Select("select * from users where id = ${id} limit 1")
+    @Select("select * from users where id = #{id} limit 1")
     SysUser getUserById(@Param("id") String id);
 }

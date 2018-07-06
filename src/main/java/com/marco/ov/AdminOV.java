@@ -6,6 +6,7 @@ package com.marco.ov;
 public class AdminOV {
     private String name;
     private String password;
+    private String imgcode;
 
     public String getName() {
         return name;
@@ -23,11 +24,20 @@ public class AdminOV {
         this.password = password;
     }
 
+    public String getImgcode() {
+        return imgcode;
+    }
+
+    public void setImgcode(String imgcode) {
+        this.imgcode = imgcode;
+    }
+
     @Override
     public String toString() {
         return "AdminOV{" +
                 "name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", imgcode='" + imgcode + '\'' +
                 '}';
     }
 }
