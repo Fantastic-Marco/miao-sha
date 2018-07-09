@@ -11,10 +11,9 @@ public class MD5Util {
 
     /**
      * 通过MD5加密字符串
-     * @param input
-     *                  加密算法，可以是MD5，SHA1
-     * @param input
-     *                  字符串
+     *
+     * @param input 加密算法，可以是MD5，SHA1
+     * @param input 字符串
      * @return 已经通过MD5算法加密的32位字符串
      */
     public final static String stringToMD5(String input) {
@@ -38,6 +37,7 @@ public class MD5Util {
 
     /**
      * 通过MD5加密文件
+     *
      * @param inputFile 文件路径
      * @return 已经通过MD5算法加密的32位字符串
      */
@@ -66,13 +66,12 @@ public class MD5Util {
     }
 
     /**
-     * @param byteArray
-     *                  byte数组
+     * @param byteArray byte数组
      * @return 转后后的32位的字符串
      */
     private static String byteArrayToHex(byte[] byteArray) {
         // 首先初始化一个字符数组，用来存放每个16进制字符
-        char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
         // new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
         char[] resultCharArray = new char[byteArray.length * 2];// 每个字节用 16 进制表示的话，使用两个字符

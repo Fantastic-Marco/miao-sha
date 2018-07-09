@@ -5,15 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.nio.file.OpenOption;
-import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.FileAttribute;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * Created by landun on 2018/7/5.
@@ -52,7 +46,7 @@ public class ImageCodeUtil {
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
             //直接生成
             String str = strEnsure.substring(i, i + 1);
-            g.drawString(str, 13 * i + 6, height-10);
+            g.drawString(str, 13 * i + 6, height - 10);
         }
         // 释放图形上下文
         g.dispose();
@@ -72,11 +66,11 @@ public class ImageCodeUtil {
         return new Color(r, g, b);
     }
 
-    public static void main(String[] args) throws IOException {
-        String path = "D:\\imgcode.jpeg";
-        String ramdomCode = StringUtil.getRamdomImgCode(6);
-        Map<String,Object> map = ImageCodeUtil.getImageCode(100, 36, ramdomCode);
-        BufferedImage image = (BufferedImage) map.get("image");
-        ImageIO.write(image,"jpeg",new File(path));
-    }
+//    public static void main(String[] args) throws IOException {
+//        String path = "D:\\imgcode.jpeg";
+//        String ramdomCode = StringUtil.getRamdomImgCode(6);
+//        Map<String, Object> map = ImageCodeUtil.getImageCode(100, 36, ramdomCode);
+//        BufferedImage image = (BufferedImage) map.get("image");
+//        ImageIO.write(image, "jpeg", new File(path));
+//    }
 }
