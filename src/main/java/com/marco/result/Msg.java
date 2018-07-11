@@ -9,6 +9,11 @@ public class Msg<T> {
     private String status;
     private T data;
 
+    public static Msg LOGIN_USER_NOT_EXIST = new Msg(500101, "账号或密码错误");
+    public static Msg LOGIN_PWD_ERROR = new Msg(500102, "密码错误");
+    public static Msg LOGIN_IMGCODE_ERROR = new Msg(500103, "验证码错误");
+
+
     public static Msg ORDER_NO_LEVEL = new Msg(500301, "订单库存不足");
 
     /**

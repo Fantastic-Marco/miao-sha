@@ -20,9 +20,7 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,7 +49,7 @@ public class DemoController {
     @Autowired
     LoginSuccessHandler handler;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     @ResponseBody
     Msg<RedisConf> home() {
         redisService.setKey(new AdminPrefix(), "test", 2);
@@ -59,42 +57,45 @@ public class DemoController {
         return Msg.returnSuccess(value);
     }
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     @ResponseBody
     Msg<String> hello() {
         return Msg.returnSuccess("hello");
     }
 
-    @RequestMapping("/to_login")
+    @GetMapping("/to_login")
     String toLogin(Model model) {
         model.addAttribute("_csrf.token", UUID.randomUUID().toString());
         return "login";
     }
 
-    @RequestMapping("/test")
+    @GetMapping("/test")
     String test(Model model) {
         model.addAttribute("test", "hello thymeleaf");
         return "index";
     }
 
-    @RequestMapping(value = "/redirect",method = RequestMethod.GET)
+    @GetMapping(value = "/redirect")
     String redirect(){
         return "redirect:/to_login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(HttpServletRequest request,Model model, AdminOV adminOV){
+    @PostMapping(value = "/login")
+    @ResponseBody
+    Msg<String> login(HttpServletRequest request, AdminOV adminOV){
         System.out.println(adminOV);
         String sessionImgCode = (String) request.getSession().getAttribute("sessionImgCode");
         System.out.println("sessionImgCode:" + sessionImgCode);
+        //验证码判断
+        if (!sessionImgCode.equals(adminOV.getImgcode())){
+            return Msg.LOGIN_IMGCODE_ERROR;
+        }
         Authentication authentication = new UsernamePasswordAuthenticationToken(adminOV.getName(), adminOV.getPassword());
         Authentication token = authenticationProvider.authenticate(authentication);
         if (token == null) {
-            model.addAttribute("result", "登录失败");
-            return "redirect:/to_login";
+            return Msg.LOGIN_USER_NOT_EXIST;
         } else {
-            model.addAttribute("result", "登录成功");
-            return "index";
+            return Msg.returnSuccess("登录成功");
         }
     }
 
