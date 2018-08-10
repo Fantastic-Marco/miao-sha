@@ -9,110 +9,87 @@ import java.nio.channels.FileChannel;
 public class TestUtil {
 
     public static void main(String[] args) {
-        int limit = 1024 * 1024 * 1024;
-        byte[] data = new byte[limit];
-        for (int i = 0; i < limit; i++) {
-            data[i] = 'A';
-        }
-        System.out.println("初始化完成");
-        String apath = "E:\\aa.txt";
-        String bpath = "E:\\bb";
-        long startTime = System.currentTimeMillis();
-        writerFileByteArrayThread(apath, bpath, data, true);
-        System.out.println("耗时：" + (System.currentTimeMillis() - startTime) + "ms");
+        B b1 = new B(50);
+        A a1 = new A("张三", b1);
+        A a2 = a1.clone();
+        A a3 = a1.deepClone();
+        System.out.println(a1);
+        System.out.println(a2);
+        System.out.println(a3);
+
     }
 
-    public static boolean writerFileByteArrayThread(String filePath, String pathValue,
-                                                    byte[] data, boolean isWriteBackReceiveFile) {
-        FileOutputStream fos = null; //输出到文件流
-        DataOutputStream dos = null;
-        try {
-            File dirFile = new File(pathValue);
-            if (!dirFile.exists()) {
-                dirFile.mkdirs();
-            }
 
-            fos = new FileOutputStream(filePath);
-            dos = new DataOutputStream(fos);
+}
 
-            dos.write(data, 0, data.length);
-            dos.flush();
-            dos.close();
+class A implements Cloneable, Serializable {
+    private static final long serialVersionUID = 1L;
+    String name;
+    B b;
 
-            if (true) {
-                writeBackReceiveFile(filePath, pathValue, new File(filePath));
-            }
-
-            return true;
-        } catch (Exception e) {
-           e.printStackTrace();
-        } finally {
-            try {
-                if (null != fos) {
-                    fos.close();
-                }
-                if (null != dos) {
-                    dos.close();
-                }
-            } catch (Exception e2) {
-            }
-        }
-
-        return false;
+    public A(String name, B b) {
+        this.name = name;
+        this.b = b;
     }
 
-    private static void writeBackReceiveFile(String filePath, String dirPath, File file) {
+
+    @Override
+    public String toString() {
+        return "A{" +
+                "name='" + name + '\'' +
+                ", b=" + b +
+                '}';
+    }
+
+    @Override
+    public A clone() {
         try {
-            String fileBakPath = filePath.replace("filereceive", "filereceiveback");
-            File filebak = new File(fileBakPath);
-            File dirFileback = new File(dirPath.replace("filereceive", "filereceiveback"));
+            return (A) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-            if (!dirFileback.exists()) {
-                dirFileback.mkdirs();
-            }
-
-            if (filebak.exists()) {
-                file.delete();
-                filebak.createNewFile();
-            }
-            fileChannelCopy(file, filebak);
+    public A deepClone() {
+        // 将对象写到流里
+        try (
+                ByteArrayOutputStream bo = new ByteArrayOutputStream();
+                ObjectOutputStream oo = new ObjectOutputStream(bo);
+        ) {
+            oo.writeObject(this);
+            // 从流里读出来
+            ByteArrayInputStream bi = new ByteArrayInputStream(bo.toByteArray());
+            ObjectInputStream oi = new ObjectInputStream(bi);
+            return (A) oi.readObject();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
+}
 
+class B implements Serializable{
+    private static final long serialVersionUID = 1L;
+    int money;
 
-    public static void fileChannelCopy(File s, File t) {
-        FileInputStream fi = null;
-        FileOutputStream fo = null;
-        FileChannel in = null;
-        FileChannel out = null;
-        try {
-            fi = new FileInputStream(s);
-            fo = new FileOutputStream(t);
-            in = fi.getChannel();// 得到对应的文件通道
-            out = fo.getChannel();// 得到对应的文件通道
-            in.transferTo(0, in.size(), out);// 连接两个通道，并且从in通道读取，然后写入out通道
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fi != null) {
-                    fi.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-                if (fo != null) {
-                    fo.close();
-                }
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public B(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    @Override
+    public String toString() {
+        return "B{" +
+                "money=" + money +
+                '}';
     }
 
 }

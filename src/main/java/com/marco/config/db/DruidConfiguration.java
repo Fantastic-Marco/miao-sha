@@ -1,4 +1,4 @@
-package com.marco.config;
+package com.marco.config.db;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -29,7 +29,7 @@ public class DruidConfiguration {
     DruidConf druidConf;
 
     /**
-     * Druid 认证配置
+     * Druid 后台管理认证配置
      *
      * @return
      */

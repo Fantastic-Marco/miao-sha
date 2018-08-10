@@ -1,5 +1,9 @@
 server:
-  port: 8080
+  port: 9443
+  ssl:
+    key-store: file:///E://mykeys.jks
+    key-password: marco520
+    trust-store-password: marco520
 
 spring:
   profiles:
@@ -23,10 +27,18 @@ spring:
 
 
 
+
 mybatis:
   #实体类所在包
   type-aliases-package: com.marco.dao.entity
   mapperLocations: classpath:mapper/*.xml
+management:
+  endpoint:
+    env:
+      enabled: true
+    beans:
+      enabled: true
+
 
 ---
 # 开发环境配置
