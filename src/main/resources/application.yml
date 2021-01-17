@@ -1,9 +1,9 @@
 server:
   port: 9443
-  ssl:
-    key-store: file:///E://mykeys.jks
-    key-password: marco520
-    trust-store-password: marco520
+#  ssl:
+#    key-store: file:///E://mykeys.jks
+#    key-password: marco520
+#    trust-store-password: marco520
 
 spring:
   profiles:
