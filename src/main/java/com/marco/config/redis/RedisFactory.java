@@ -4,6 +4,7 @@ import com.marco.config.conf.RedisConf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -44,7 +45,7 @@ public class RedisFactory {
         config.setMaxIdle(redisConf.getMaxIdel());
         config.setMinIdle(redisConf.getMinIdel());
         JedisPool pool = null;
-        if (redisConf.getPassword() != null) {
+        if (!StringUtils.isEmpty(redisConf.getPassword())) {
             pool = new JedisPool(config, redisConf.getHost(), redisConf.getPort(), redisConf.getTimeout() * 1000, redisConf.getPassword(), redisConf.getDatabase());
         } else {
             pool = new JedisPool(config, redisConf.getHost(), redisConf.getPort(), redisConf.getTimeout() * 1000);
