@@ -19,7 +19,7 @@
 
     <properties>
         <druid>1.0.18</druid>
-        <spring-boot>1.5.4.RELEASE</spring-boot>
+        <spring-boot>2.5.12</spring-boot>
         <mybaits>1.3.0</mybaits>
         <pagehelper>4.1.6</pagehelper>
         <jedis>2.9.0</jedis>
