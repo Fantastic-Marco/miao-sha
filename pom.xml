@@ -23,7 +23,7 @@
         <mybaits>1.3.0</mybaits>
         <pagehelper>4.1.6</pagehelper>
         <jedis>2.9.0</jedis>
-        <fastjson>1.2.47</fastjson>
+        <fastjson>1.2.83</fastjson>
         <log4j>1.3.8.RELEASE</log4j>
     </properties>
 
